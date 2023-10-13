@@ -45,6 +45,7 @@ def on_ui_tabs():
                         video = gr.Video(label="Video", format="mp4",
                                          info="Filepath of video/image that contains faces to use",
                                          file_types=["mp4", "png", "jpg", "jpeg", "avi"])
+                        video_path = gr.Textbox(label="(alternative) Video path")
                         face_swap_img = gr.Image(label="Face Swap", type="pil")
                         face_index_slider = gr.Slider(minimum=0, maximum=20, step=1, value=0, label="Face index",
                                                     info="index of face to swap, left face in image is 0")
@@ -75,6 +76,7 @@ def on_ui_tabs():
                             silence = gr.Slider(label="Silence", minimum=0, maximum=1, step=0.01, value=0.25, info="Silence after [split] in seconde")
                             generate_audio = gr.Button("Generate")
                             audio = gr.Audio(label="Speech", type="filepath")
+                            audio_path = gr.Textbox(label="(alternative) Audio Path")
 
                         # if language changed, update speaker list
                         language.change(update_speaker_list, [language, gender], [speaker, audio_example])
@@ -142,10 +144,16 @@ def on_ui_tabs():
 
             return wav
 
-        def generate(video, face_swap_img, face_index, audio, checkpoint, face_restore_model, no_smooth, only_mouth, resize_factor,
+        def generate(video, video_path, face_swap_img, face_index, audio, audio_path, checkpoint, face_restore_model, no_smooth, only_mouth, resize_factor,
                      mouth_mask_dilatation, erode_face_mask, mask_blur, pad_top, pad_bottom, pad_left, pad_right,
                      active_debug, code_former_weight):
             state.begin()
+
+            if video_path is not None:
+                video = video_path
+            
+            if audio_path is not None:
+                audio = audio_path
 
             if video is None or audio is None:
                 print("[ERROR] Please select a video and an audio file")
@@ -182,7 +190,7 @@ def on_ui_tabs():
 
         generate_btn.click(
             generate,
-            [video, face_swap_img, face_index_slider, audio, checkpoint, face_restore_model, no_smooth, only_mouth, resize_factor, mouth_mask_dilatation,
+            [video, video_path, face_swap_img, face_index_slider, audio, audio_path, checkpoint, face_restore_model, no_smooth, only_mouth, resize_factor, mouth_mask_dilatation,
              erode_face_mask, mask_blur, pad_top, pad_bottom, pad_left, pad_right, active_debug, code_former_weight],
             [faceswap_video, wav2lip_video, restore_video, result])
 
