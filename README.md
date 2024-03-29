@@ -1,5 +1,17 @@
 # 🔉👄 Wav2Lip STUDIO extension for Stable Diffusion WebUI Automatic1111
 
+```bash
+git clone https://github.com/PhilSad/sd-wav2lip-uhq
+
+wget -P extensions/sd-wav2lip-uhq/scripts/wav2lip/checkpoints/ https://huggingface.co/spaces/jerryyan21/wav2lip_demo_test/resolve/1979f8b69b22b24171adf63e66946cc377bb7390/wav2lip.pth
+
+wget -O extensions/sd-wav2lip-uhq/scripts/wav2lip/face_detection/detection/sfd/ https://huggingface.co/wageguagua/wav2lip/resolve/main/s3fd-619a316812.pth
+
+wget -P extensions/sd-wav2lip-uhq/scripts/wav2lip/predicator/ https://github.com/numz/wav2lip_uhq/raw/main/predicator/shape_predictor_68_face_landmarks.dat
+
+
+
+
 ## <div align="center"><b><a href="README.md">English</a> | <a href="README_CN.md">简体中文</a></b></div>
 
 <img src="https://user-images.githubusercontent.com/800903/258130805-26d9732f-4d33-4c7e-974e-7af2f1261768.gif" width="100%">
